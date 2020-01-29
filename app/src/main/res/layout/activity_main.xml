@@ -39,8 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FAFAFA"
-        android:orientation="vertical"
-        app:layout_behavior="@string/bottom_sheet_behavior">
+        android:orientation="vertical">
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -73,9 +72,7 @@
         android:layout_margin="16dp"
         android:src="@drawable/ic_camera"
         app:backgroundTint="@color/colorPrimary"
-        app:fabSize="normal"
         app:layout_anchor="@id/layout_bottom_sheet"
-        app:layout_anchorGravity="end"
-        app:rippleColor="@color/colorAccent" />
+        app:layout_anchorGravity="end" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
