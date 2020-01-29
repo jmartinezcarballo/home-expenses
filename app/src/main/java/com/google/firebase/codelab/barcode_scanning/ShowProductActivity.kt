@@ -10,6 +10,7 @@ import androidx.room.Room
 import com.google.gson.Gson
 import com.jmartinezcarballo.model.AppDatabase.AppDatabase
 import com.jmartinezcarballo.model.ProductResponse
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product.*
 
 
@@ -17,7 +18,7 @@ class ShowProductActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        setContentView(R.layout.activity_product)
 
         val barcode = intent.getStringExtra("barcode")
 
@@ -30,14 +31,14 @@ class ShowProductActivity : AppCompatActivity() {
 
         if(productResponse.status == 1) {
             product_name.text = productResponse.product.product_name
-            product_image.setImageURI(Uri.parse(productResponse.product.image_front_url))
 
+            Picasso.with(this).load(productResponse.product.image_front_url).into(product_image);
 
             //TODO: database insert
-            val db = Room.databaseBuilder(
-                applicationContext,
-                AppDatabase::class.java, "database-name"
-            ).build()
+//            val db = Room.databaseBuilder(
+//                applicationContext,
+//                AppDatabase::class.java, "database-name"
+//            ).build()
 
         } else {
             Toast.makeText(this, "The product does not exist", Toast.LENGTH_SHORT)

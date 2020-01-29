@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
+import com.google.firebase.FirebaseApp
 import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions
@@ -54,6 +55,7 @@ class BarcodeScannerActivity : BaseCameraActivity() {
                 .build()
 
         //Get access to an instance of FirebaseBarcodeDetector
+        FirebaseApp.initializeApp(this)
         val detector = FirebaseVision.getInstance().getVisionBarcodeDetector(options)
 
         //Use the detector to detect the labels inside the image
