@@ -1,21 +1,16 @@
 package com.google.firebase.codelab.barcode_scanning
 
-import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_home.*
 import java.net.URL
 import android.os.StrictMode
-import androidx.core.app.ComponentActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.net.Uri
+import androidx.room.Room
 import com.google.gson.Gson
+import com.jmartinezcarballo.model.AppDatabase.AppDatabase
 import com.jmartinezcarballo.model.ProductResponse
 import kotlinx.android.synthetic.main.activity_product.*
-import org.xml.sax.Parser
 
 
 class ShowProductActivity : AppCompatActivity() {
@@ -36,6 +31,14 @@ class ShowProductActivity : AppCompatActivity() {
         if(productResponse.status == 1) {
             product_name.text = productResponse.product.product_name
             product_image.setImageURI(Uri.parse(productResponse.product.image_front_url))
+
+
+            //TODO: database insert
+            val db = Room.databaseBuilder(
+                applicationContext,
+                AppDatabase::class.java, "database-name"
+            ).build()
+
         } else {
             Toast.makeText(this, "The product does not exist", Toast.LENGTH_SHORT)
         }
