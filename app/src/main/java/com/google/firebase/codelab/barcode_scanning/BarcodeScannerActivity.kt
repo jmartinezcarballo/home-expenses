@@ -107,4 +107,8 @@ class BarcodeScannerActivity : BaseCameraActivity() {
 
         cameraView.captureSnapshot()
     }
+
+    companion object {
+        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+    }
 }

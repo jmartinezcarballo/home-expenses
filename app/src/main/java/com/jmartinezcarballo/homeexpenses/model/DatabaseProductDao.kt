@@ -1,4 +1,4 @@
-package com.jmartinezcarballo.model
+package com.jmartinezcarballo.homeexpenses.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

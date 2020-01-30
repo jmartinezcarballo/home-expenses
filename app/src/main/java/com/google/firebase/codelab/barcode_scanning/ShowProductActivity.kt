@@ -5,11 +5,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.net.URL
 import android.os.StrictMode
-import android.net.Uri
-import androidx.room.Room
 import com.google.gson.Gson
-import com.jmartinezcarballo.model.AppDatabase.AppDatabase
-import com.jmartinezcarballo.model.ProductResponse
+import com.jmartinezcarballo.homeexpenses.model.ProductResponse
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_product.*
 
@@ -37,7 +34,7 @@ class ShowProductActivity : AppCompatActivity() {
             //TODO: database insert
 //            val db = Room.databaseBuilder(
 //                applicationContext,
-//                AppDatabase::class.java, "database-name"
+//                ProductRoomDatabase::class.java, "database-name"
 //            ).build()
 
         } else {

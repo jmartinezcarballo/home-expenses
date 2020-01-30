@@ -1,4 +1,4 @@
-package com.jmartinezcarballo.model
+package com.jmartinezcarballo.homeexpenses.model
 
 data class ProductResponse(
     val code: String,

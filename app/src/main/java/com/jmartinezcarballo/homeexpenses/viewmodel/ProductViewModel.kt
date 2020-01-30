@@ -5,8 +5,8 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.jmartinezcarballo.homeexpenses.repository.ProductRepository
-import com.jmartinezcarballo.model.AppDatabase
-import com.jmartinezcarballo.model.DatabaseProduct
+import com.jmartinezcarballo.homeexpenses.model.ProductRoomDatabase
+import com.jmartinezcarballo.homeexpenses.model.DatabaseProduct
 import kotlinx.coroutines.launch
 
 class ProductViewModel(application: Application) : AndroidViewModel(application) {
@@ -16,7 +16,7 @@ class ProductViewModel(application: Application) : AndroidViewModel(application)
     val allProducts: LiveData<List<DatabaseProduct>>
 
     init {
-        val productDao = AppDatabase.getDatabase(application).databaseProductDao()
+        val productDao = ProductRoomDatabase.getDatabase(application, viewModelScope).databaseProductDao()
         repository = ProductRepository(productDao)
         allProducts = repository.allProducts
     }

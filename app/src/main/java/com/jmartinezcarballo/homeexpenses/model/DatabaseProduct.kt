@@ -1,4 +1,4 @@
-package com.jmartinezcarballo.model
+package com.jmartinezcarballo.homeexpenses.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
