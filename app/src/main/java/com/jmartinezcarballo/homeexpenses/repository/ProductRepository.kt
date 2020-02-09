@@ -1,14 +1,14 @@
 package com.jmartinezcarballo.homeexpenses.repository
 
 import androidx.lifecycle.LiveData
-import com.jmartinezcarballo.homeexpenses.model.DatabaseProduct
-import com.jmartinezcarballo.homeexpenses.model.DatabaseProductDao
+import com.jmartinezcarballo.homeexpenses.model.Product
+import com.jmartinezcarballo.homeexpenses.model.ProductDao
 
-class ProductRepository(private val productDao: DatabaseProductDao) {
+class ProductRepository(private val productDao: ProductDao) {
 
-    val allProducts: LiveData<List<DatabaseProduct>> = productDao.findAll()
+    val allProducts: List<Product> = productDao.findAll()
 
-    suspend fun insert(databaseProduct: DatabaseProduct) {
-        productDao.add(databaseProduct)
+    suspend fun insert(product: Product) {
+        productDao.add(product)
     }
 }

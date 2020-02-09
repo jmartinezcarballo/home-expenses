@@ -1,44 +1,45 @@
-package com.google.firebase.codelab.barcode_scanning
+package com.jmartinezcarballo.homeexpenses.activity
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import java.net.URL
 import android.os.StrictMode
+import com.google.firebase.codelab.barcode_scanning.R
 import com.google.gson.Gson
 import com.jmartinezcarballo.homeexpenses.model.ProductResponse
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_product.*
+import kotlinx.android.synthetic.main.item_product.*
 
 
 class ShowProductActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product)
+        setContentView(R.layout.item_product)
 
         val barcode = intent.getStringExtra("barcode")
 
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val result = URL("https://world.openfoodfacts.org/api/v0/product/" + barcode).readText()
+        val result = URL("https://world.openfoodfacts.org/api/v0/productData/" + barcode).readText()
 
         val productResponse: ProductResponse = Gson().fromJson(result, ProductResponse::class.java)
 
         if(productResponse.status == 1) {
-            product_name.text = productResponse.product.product_name
+            product_name.text = productResponse.productData.product_name
 
-            Picasso.with(this).load(productResponse.product.image_front_url).into(product_image);
+            Picasso.with(this).load(productResponse.productData.image_front_url).into(product_image);
 
             //TODO: database insert
 //            val db = Room.databaseBuilder(
 //                applicationContext,
-//                ProductRoomDatabase::class.java, "database-name"
+//                ProductDatabase::class.java, "database-name"
 //            ).build()
 
         } else {
-            Toast.makeText(this, "The product does not exist", Toast.LENGTH_SHORT)
+            Toast.makeText(this, "The productData does not exist", Toast.LENGTH_SHORT)
         }
     }
 }

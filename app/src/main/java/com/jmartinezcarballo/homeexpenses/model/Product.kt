@@ -1,10 +1,12 @@
 package com.jmartinezcarballo.homeexpenses.model
 
-data class Product(
-    val id: String,
-    val nutriscore_grade: String,
-    val product_name: String,
-    val image_front_url: String,
-    val quantity: String) {
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-}
+@Entity(tableName = "products")
+data class Product(
+    @PrimaryKey val barcode: Int,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "image") val image: String?
+)

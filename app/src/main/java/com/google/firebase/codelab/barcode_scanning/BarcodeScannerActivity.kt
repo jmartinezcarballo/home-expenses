@@ -1,5 +1,6 @@
 package com.google.firebase.codelab.barcode_scanning
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -13,6 +14,7 @@ import com.google.firebase.ml.vision.FirebaseVision
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetectorOptions
 import com.google.firebase.ml.vision.common.FirebaseVisionImage
+import com.jmartinezcarballo.homeexpenses.activity.ShowProductActivity
 import com.otaliastudios.cameraview.CameraListener
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -84,12 +86,11 @@ class BarcodeScannerActivity : BaseCameraActivity() {
                             //None of the above type was detected, so extract the value from the barcode
                         }
                     }
-                    val intent = Intent(this, ShowProductActivity::class.java)
-                    intent.putExtra("barcode", qrList.get(0).value)
-                    startActivity(intent)
-//                    adapter.notifyDataSetChanged()
-                    progressBar.visibility = View.GONE
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED)
+                    val intent = Intent()
+                    intent.putExtra(BARCODE, qrList.get(0).value)
+                    setResult(Activity.RESULT_OK, intent)
+
+                    finish()
                 }
                 .addOnFailureListener {
                     // Task failed with an exception
@@ -109,6 +110,6 @@ class BarcodeScannerActivity : BaseCameraActivity() {
     }
 
     companion object {
-        const val EXTRA_REPLY = "com.example.android.wordlistsql.REPLY"
+        const val BARCODE = "[BARCODE]"
     }
 }

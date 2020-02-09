@@ -1,37 +1,40 @@
 package com.jmartinezcarballo.homeexpenses.adapter
 
-import android.content.Context
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.codelab.barcode_scanning.R
-import com.jmartinezcarballo.homeexpenses.model.DatabaseProduct
+import com.jmartinezcarballo.homeexpenses.model.Product
 
-class ProductListAdapter internal constructor(context: Context) : RecyclerView.Adapter<ProductListAdapter.ProductViewHolder>() {
+class ProductListAdapter (val products: List<Product>) : RecyclerView.Adapter<ProductListAdapter.ViewHolder>() {
 
-    private val inflater: LayoutInflater = LayoutInflater.from(context)
-    private var products = emptyList<DatabaseProduct>() // Cached copy of products
-
-    inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val productItemView: TextView = itemView.findViewById(R.id.textView)
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = products[position]
+        holder.bind(item)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
-        val itemView = inflater.inflate(R.layout.recyclerview_item, parent, false)
-        return ProductViewHolder(itemView)
-    }
-
-    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val current = products[position]
-        holder.productItemView.text = current.name
-    }
-
-    internal fun setProducts(productsDao: List<DatabaseProduct>) {
-        this.products = productsDao
-        notifyDataSetChanged()
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return ViewHolder(layoutInflater.inflate(R.layout.item_product, parent, false))
     }
 
     override fun getItemCount() = products.size
+
+
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val productImage = view.findViewById<ImageView>(R.id.product_image)
+        val productName = view.findViewById<TextView>(R.id.product_name)
+
+        fun bind(product: Product) {
+            productName.text = product.name
+            productImage.setImageURI(Uri.parse(product.image))
+//          Picasso.with(this).load(product.image).into(productImage);
+        }
+    }
+
 }
+
