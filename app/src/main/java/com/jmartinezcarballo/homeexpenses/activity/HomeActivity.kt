@@ -1,8 +1,10 @@
 package com.jmartinezcarballo.homeexpenses.activity
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,7 +48,7 @@ class HomeActivity : AppCompatActivity() {
     //uiThread: when doAsync finishes do something in main thread
     private fun getProducts() {
         doAsync {
-            products = HomeActivity.database.productDao().findAll()
+            products = database.productDao().findAll()
             uiThread {
                 setUpRecyclerView(products)
             }
@@ -58,8 +60,16 @@ class HomeActivity : AppCompatActivity() {
 
         if (requestCode == newProductActivityRequestCode && resultCode == Activity.RESULT_OK) {
             data?.getStringExtra(BarcodeScannerActivity.BARCODE)?.let {
-                val product = Product(1, it, "image")
-//                productViewModel.insert(productData)
+
+            val product = Product(1, it, "image")
+            val id = database.productDao().add(product)
+//            val recoveryProduct = database.productDao().findByBarcode(data.getStringExtra(data.getStringExtra(BarcodeScannerActivity.BARCODE))
+
+                runOnUiThread {
+                    products.add(product)
+                    recyclerView.adapter?.notifyItemInserted(products.size)
+                }
+
             }
         } else {
             Toast.makeText(
